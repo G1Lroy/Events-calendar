@@ -30,12 +30,13 @@ export const loginCreators = {
 
         await new Promise((res) => setTimeout(res, 1000));
 
-        const responce = await axios.get<IUser[]>("./users.json");
-        const loggedUsers = responce.data.find(
+        const response = await axios.get<IUser[]>("./users.json");
+        const loggedUsers = response.data.find(
           (user) => user.username === username && user.password === password
         );
         if (loggedUsers) {
           localStorage.setItem("isLogin", "true");
+          localStorage.setItem("user", JSON.stringify(loggedUsers));
           dispatch(loginCreators.setLogin(true));
           dispatch(loginCreators.setUser(loggedUsers));
         } else {

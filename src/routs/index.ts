@@ -1,4 +1,4 @@
-import Calendar from "../pages/Calendar";
+import EventPage from "../pages/EventPage";
 import Login from "../pages/Login";
 
 export interface IRouts {
@@ -6,5 +6,9 @@ export interface IRouts {
   Component: React.ComponentType;
 }
 
-export const publicRoutes: IRouts[] = [{ path: "/login", Component: Login }];
-export const privateRoutes: IRouts[] = [{ path: "/home", Component: Calendar }];
+export const publicRoutes: IRouts[] = [
+  { path: "/login", Component: Login }
+];
+export const privateRoutes: IRouts[] = [
+  { path: "/home", Component: EventPage },
+];

@@ -10,8 +10,6 @@ const Navbar: FC = () => {
   const { logout } = useActions();
   const { isLogin, user } = useSelectorType((state) => state.loginState);
 
-
-
   return (
     <Layout.Header>
       <Row justify="end">

@@ -9,20 +9,23 @@ import { IEvents } from "../models/EVENT_TYPES";
 
 const EventPage: FC = () => {
   const [IsmodalOpen, setIsModalOpen] = useState(false);
-  const { fetchGuests } = useActions();
-  const { guests } = useSelectorType((state) => state.eventState);
+  const { fetchGuests, createEvent, fetchEvents } = useActions();
+  const { guests, events } = useSelectorType((state) => state.eventState);
+  const loggedUser = useSelectorType((state) => state.loginState.user.username);
 
   useEffect(() => {
     fetchGuests();
+    fetchEvents(loggedUser);
   }, []);
 
   const addNewEvent = (event: IEvents) => {
-    console.log(event);
+    createEvent(event);
     setIsModalOpen(false);
   };
+  
   return (
     <Layout className="main-content">
-      <EventsCalendar events={[]}></EventsCalendar>
+      <EventsCalendar events={events}></EventsCalendar>
       <Row justify={"center"}>
         <Button onClick={() => setIsModalOpen(true)}>Add event</Button>
         <Modal

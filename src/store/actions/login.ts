@@ -37,8 +37,8 @@ export const loginCreators = {
         if (loggedUsers) {
           localStorage.setItem("isLogin", "true");
           localStorage.setItem("user", JSON.stringify(loggedUsers));
-          dispatch(loginCreators.setLogin(true));
           dispatch(loginCreators.setUser(loggedUsers));
+          dispatch(loginCreators.setLogin(true));
         } else {
           dispatch(loginCreators.setError("Пользователь не найден"));
         }

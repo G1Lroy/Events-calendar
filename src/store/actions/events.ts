@@ -25,4 +25,27 @@ export const eventCreators = {
       console.log(error);
     }
   },
+  createEvent: (newEvent: IEvents) => async (dispatch: AppDispatch) => {
+    try {
+      const eventData = localStorage.getItem("events") || "[]";
+      const eventsArr = JSON.parse(eventData) as IEvents[];
+      eventsArr.push(newEvent);
+      dispatch(eventCreators.setEvents(eventsArr));
+      localStorage.setItem("events", JSON.stringify(eventsArr));
+    } catch (error) {
+      console.log(error);
+    }
+  },
+  fetchEvents: (loggedUser: string) => async (dispatch: AppDispatch) => {
+    try {
+      const data = localStorage.getItem("events") || "[]";
+      const events = JSON.parse(data) as IEvents[];
+      const allowedEvents = events.filter(
+        (e) => e.author === loggedUser || e.guest === loggedUser
+      );
+      dispatch(eventCreators.setEvents(allowedEvents));
+    } catch (error) {
+      console.log(error);
+    }
+  },
 };

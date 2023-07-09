@@ -1,8 +1,9 @@
 import { Button, DatePicker, Form, Input, Row, Select } from "antd";
-import React, { FC, useState, useEffect } from "react";
+import React, { FC, useState } from "react";
 import { IUser } from "../models/LOGIN_TYPES";
 import { IEvents } from "../models/EVENT_TYPES";
 import { useSelectorType } from "../hooks/useSelectorType";
+import dayjs, { Dayjs } from "dayjs";
 
 interface EventFormProps {
   guests: IUser[];
@@ -19,9 +20,9 @@ const EventForm: FC<EventFormProps> = ({ guests, submit }) => {
     guest: "",
   });
 
-  const submitEventForm = () => {
-    submit(event);
-  };
+  const submitEventForm = () => submit(event);
+
+  const disabledDate = (cur: Dayjs) => cur && cur < dayjs().endOf("day");
 
   return (
     <Form onFinish={submitEventForm}>
@@ -42,6 +43,7 @@ const EventForm: FC<EventFormProps> = ({ guests, submit }) => {
         rules={[{ required: true, message: "" }]}
       >
         <DatePicker
+          disabledDate={disabledDate}
           format="YYYY-MM-DD"
           onChange={(_, dateString) => setEvent({ ...event, date: dateString })}
           style={{ width: "100%" }}

@@ -1,5 +1,5 @@
-import React, { FC } from "react";
-import { Calendar } from "antd";
+import React, { FC, useState } from "react";
+import { Badge, Calendar, Card, Popover } from "antd";
 import { IEvents } from "../models/EVENT_TYPES";
 import { Moment } from "moment";
 
@@ -8,7 +8,7 @@ interface EventsCalendarProps {
 }
 
 const EventsCalendar: FC<EventsCalendarProps> = (props) => {
-  function dateCellRender(value: Moment) {
+  const dateCellRender = (value: Moment) => {
     const formattedDate = value.format("YYYY-MM-DD");
     const currentDayEvents = props.events.filter(
       (ev) => ev.date === formattedDate
@@ -16,14 +16,33 @@ const EventsCalendar: FC<EventsCalendarProps> = (props) => {
     return (
       <div>
         {currentDayEvents.map((ev, index) => (
-          <div key={index}>{ev.description}</div>
+          <Card size="small" key={index}>
+            <Popover
+              title={`Event Details`}
+              content={
+                <div>
+                  <p>
+                    <strong>Author:</strong> {ev.author}
+                  </p>
+                  <p>
+                    <strong>Guest:</strong> {ev.guest}
+                  </p>
+                </div>
+              }
+            >
+              <Badge status={ev.status} text={ev.description} />
+            </Popover>
+          </Card>
         ))}
       </div>
     );
-  }
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
-  return <Calendar dateCellRender={dateCellRender} />;
+  };
+
+  return (
+    /* eslint-disable-next-line @typescript-eslint/ban-ts-comment */
+    /* @ts-ignore */
+    <Calendar dateCellRender={dateCellRender} />
+  );
 };
 
 export default EventsCalendar;

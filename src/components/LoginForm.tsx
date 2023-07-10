@@ -1,25 +1,41 @@
 import React, { FC, useState } from "react";
-import { Button, Form, Input } from "antd";
+import { message, Button, Form, Input, Row } from "antd";
 import { useSelectorType } from "../hooks/useSelectorType";
 import { useActions } from "../hooks/useActions";
 
 const LoginForm: FC = () => {
   const { login } = useActions();
-  const { error, isloading } = useSelectorType((state) => state.loginState);
+  const [messageApi, contextHolder] = message.useMessage();
+  const { isloading, isLogin } = useSelectorType((state) => state.loginState);
   const [userInfo, setUserInfo] = useState({
     username: "",
     password: "",
   });
   const { username, password } = userInfo;
-  const submit = () => login(username, password);
+  
+  const submit = () => {
+    messageApi
+      .open({
+        type: "loading",
+        content: "Action in progress..",
+        duration: 1,
+      })
+      .then(() => {
+        if (!isLogin) message.warning("Invalid user or pasword", 1);
+      });
+
+    login(username, password);
+  };
+  
+  
 
   return (
     <Form onFinish={submit}>
-      {error && <div>{error}</div>}
+      {contextHolder}
       <Form.Item
         label="Username"
         name="username"
-        rules={[{ required: true, message: "Please input your username!" }]}
+        rules={[{ required: true, message: "" }]}
       >
         <Input
           value={username}
@@ -31,7 +47,7 @@ const LoginForm: FC = () => {
       <Form.Item
         label="Password"
         name="password"
-        rules={[{ required: true, message: "Please input your password!" }]}
+        rules={[{ required: true, message: "" }]}
       >
         <Input.Password
           value={password}
@@ -40,10 +56,13 @@ const LoginForm: FC = () => {
           }
         />
       </Form.Item>
+
       <Form.Item>
-        <Button type="primary" htmlType="submit" loading={isloading}>
-          Submit
-        </Button>
+        <Row justify={"center"} align={"middle"}>
+          <Button type="primary" htmlType="submit" loading={isloading}>
+            Submit
+          </Button>
+        </Row>
       </Form.Item>
     </Form>
   );

@@ -10,3 +10,11 @@
 .h100 {
     height: calc(100vh - 64px);
 }
+
+.ant-badge-status {
+    width: 100%;
+    overflow: hidden;
+    font-size: 12px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}

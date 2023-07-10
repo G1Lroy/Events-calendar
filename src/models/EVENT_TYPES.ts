@@ -10,6 +10,7 @@ export interface IEvents {
   guest: string;
   date: string;
   description: string;
+  status?: "default" | "success" | "processing" | "error" | "warning";
 }
 
 export enum eventActionTypes {

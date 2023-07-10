@@ -21,7 +21,6 @@ export const loginReducer = (
       return {
         ...state,
         isLogin: action.payload,
-        isloading: false,
       };
     case loginActionsTypes.SET_USER:
       return {
@@ -32,7 +31,6 @@ export const loginReducer = (
       return {
         ...state,
         error: action.payload,
-        isloading: false,
       };
     case loginActionsTypes.SET_LOADING:
       return {

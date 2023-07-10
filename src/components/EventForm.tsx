@@ -4,6 +4,7 @@ import { IUser } from "../models/LOGIN_TYPES";
 import { IEvents } from "../models/EVENT_TYPES";
 import { useSelectorType } from "../hooks/useSelectorType";
 import dayjs, { Dayjs } from "dayjs";
+import { bageStatus } from "../bages";
 
 interface EventFormProps {
   guests: IUser[];
@@ -18,12 +19,14 @@ const EventForm: FC<EventFormProps> = ({ guests, submit }) => {
     date: "",
     description: "",
     guest: "",
+    status: "default",
   });
 
   const submitEventForm = () => submit(event);
 
   const disabledDate = (cur: Dayjs) => cur && cur < dayjs().endOf("day");
 
+ 
   return (
     <Form onFinish={submitEventForm}>
       <Form.Item
@@ -59,6 +62,28 @@ const EventForm: FC<EventFormProps> = ({ guests, submit }) => {
           {guests.map((item) => (
             <Select.Option value={item.username} key={item.username}>
               {item.username}
+            </Select.Option>
+          ))}
+        </Select>
+      </Form.Item>
+
+      <Form.Item
+        label="Status"
+        name="status"
+        rules={[{ required: true, message: "" }]}
+      >
+        <Select
+          onChange={(item) => {
+            setEvent({ ...event, status: item });
+          }}
+        >
+          {bageStatus.map((item) => (
+            <Select.Option
+              style={{ color: `${item.color}` }}
+              value={item.status}
+              key={item.status}
+            >
+              {item.title}
             </Select.Option>
           ))}
         </Select>

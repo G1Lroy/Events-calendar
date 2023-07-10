@@ -27,20 +27,18 @@ export const loginCreators = {
     (username: string, password: string) => async (dispatch: AppDispatch) => {
       try {
         dispatch(loginCreators.setLoading(true));
-
         await new Promise((res) => setTimeout(res, 1000));
-
         const response = await axios.get<IUser[]>("./users.json");
         const loggedUsers = response.data.find(
           (user) => user.username === username && user.password === password
         );
         if (loggedUsers) {
+          dispatch(loginCreators.setLogin(true));
+          dispatch(loginCreators.setUser(loggedUsers));
           localStorage.setItem("isLogin", "true");
           localStorage.setItem("user", JSON.stringify(loggedUsers));
-          dispatch(loginCreators.setUser(loggedUsers));
-          dispatch(loginCreators.setLogin(true));
         } else {
-          dispatch(loginCreators.setError("Пользователь не найден"));
+          dispatch(loginCreators.setError("Ivalid user or password"));
         }
         dispatch(loginCreators.setLoading(false));
       } catch (error) {
@@ -48,8 +46,8 @@ export const loginCreators = {
       }
     },
   logout: () => (dispatch: AppDispatch) => {
-    localStorage.removeItem("isLogin");
     dispatch(loginCreators.setLogin(false));
     dispatch(loginCreators.setUser({} as IUser));
+    localStorage.removeItem("isLogin");
   },
 };

@@ -2,7 +2,7 @@ export interface loginState {
   isLogin: boolean;
   user: IUser;
   isloading: boolean;
-  error: string | null;
+  error: null | string;
 }
 
 export interface IUser {

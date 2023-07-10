@@ -15,11 +15,12 @@ const EventPage: FC = () => {
 
   useEffect(() => {
     fetchGuests();
-    fetchEvents(loggedUser);
+    fetchEvents(loggedUser);    
   }, []);
 
   const addNewEvent = (event: IEvents) => {
     createEvent(event);
+    fetchEvents(loggedUser);
     setIsModalOpen(false);
   };
   

@@ -11,6 +11,7 @@ export interface IEvents {
   date: string;
   description: string;
   status?: "default" | "success" | "processing" | "error" | "warning";
+  id: number;
 }
 
 export enum eventActionTypes {
@@ -27,4 +28,8 @@ export interface setEventsAction {
   payload: IEvents[];
 }
 
-export type EventActions = setGuestsAction | setEventsAction;
+
+export type EventActions =
+  | setGuestsAction
+  | setEventsAction
+

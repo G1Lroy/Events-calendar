@@ -48,4 +48,16 @@ export const eventCreators = {
       console.log(error);
     }
   },
+
+  removeEvent: (payload: any, id: number) => async (dispatch: AppDispatch) => {
+    try {
+      dispatch(eventCreators.setEvents(payload));
+      const eventData = localStorage.getItem("events") || "[]";
+      const eventsArr = JSON.parse(eventData) as IEvents[];
+      const filteredEventsArr = eventsArr.filter((item) => item.id !== id);
+      localStorage.setItem("events", JSON.stringify(filteredEventsArr));
+    } catch (error) {
+      console.log(error);
+    }
+  },
 };

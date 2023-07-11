@@ -26,6 +26,7 @@ export const loginReducer = (
       return {
         ...state,
         user: action.payload,
+        
       };
     case loginActionsTypes.SET_ERROR:
       return {

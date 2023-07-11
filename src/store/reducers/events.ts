@@ -24,6 +24,7 @@ export const eventReducer = (
         ...state,
         events: action.payload,
       };
+    
 
     default:
       return state;

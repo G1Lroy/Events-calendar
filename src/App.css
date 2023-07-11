@@ -4,8 +4,70 @@
     box-sizing: border-box;
 }
 
+.header-light {
+    background-color: #ffffff;
+    margin-bottom: 25px;
+    max-width: 1980px;
+}
 
+.user-info {
+    position: relative;
+}
 
+.user-info img {
+    margin-right: 10px;
+    width: 20px;
+    vertical-align: text-top;
+}
+
+.event-notification {
+    position: absolute;
+    left: -3px;
+    top: 20px;
+    width: 10px;
+    height: 10px;
+    background-color: #0bc233;
+    border-radius: 50%;
+    cursor: pointer;
+
+}
+
+.event-notification.event-notification--active {
+    background-color: #f28e0c;
+    animation: jump-shaking 1s infinite;
+}
+
+.event-notification.event-notification--active:hover {
+    animation: none;
+}
+
+@keyframes jump-shaking {
+    0% {
+        transform: translateX(0)
+    }
+
+    25% {
+        transform: translateX(2px)
+    }
+
+    50% {
+        transform: translateX(-2px)
+    }
+
+    75% {
+        transform: translateX(2px)
+    }
+
+    100% {
+        transform: translateX(0)
+    }
+}
+
+.remove-event-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
 
 .h100 {
     height: calc(100vh - 64px);
@@ -17,4 +79,35 @@
     font-size: 12px;
     white-space: nowrap;
     text-overflow: ellipsis;
+}
+
+.main-content {
+    max-width: 1200px;
+    padding: 20px;
+    margin: 0 auto;
+
+}
+
+.add-event-wrapper {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 10;
+}
+
+.event-calendar {
+    padding: 10px;
+
+}
+
+.event-calendar .ant-picker-calendar-date-content {
+    height: 65px !important;
+}
+
+.event-card--small .ant-card-body {
+    padding: 3px !important;
+}
+
+:where(.css-dev-only-do-not-override-12upa3x).ant-badge.ant-badge-status {
+    vertical-align: middle;
 }

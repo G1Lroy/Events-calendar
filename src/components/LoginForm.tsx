@@ -12,8 +12,9 @@ const LoginForm: FC = () => {
     password: "",
   });
   const { username, password } = userInfo;
-  
-  const submit = () => {
+
+  const submit = async () => {
+    login(username, password);
     messageApi
       .open({
         type: "loading",
@@ -23,11 +24,8 @@ const LoginForm: FC = () => {
       .then(() => {
         if (!isLogin) message.warning("Invalid user or pasword", 1);
       });
-
-    login(username, password);
+      
   };
-  
-  
 
   return (
     <Form onFinish={submit}>

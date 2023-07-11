@@ -1,5 +1,13 @@
-import { Button, DatePicker, Form, Input, Row, Select } from "antd";
-import React, { FC, useState } from "react";
+import {
+  Button,
+  DatePicker,
+  Form,
+  FormInstance,
+  Input,
+  Row,
+  Select,
+} from "antd";
+import React, { FC, useRef, useState } from "react";
 import { IUser } from "../models/LOGIN_TYPES";
 import { IEvents } from "../models/EVENT_TYPES";
 import { useSelectorType } from "../hooks/useSelectorType";
@@ -12,23 +20,29 @@ interface EventFormProps {
 }
 
 const EventForm: FC<EventFormProps> = ({ guests, submit }) => {
+  const formRef = useRef<FormInstance | null>(null);
   const author = useSelectorType((state) => state.loginState.user.username);
-
-  const [event, setEvent] = useState<IEvents>({
+  const mockEvent: IEvents = {
     author,
     date: "",
     description: "",
     guest: "",
     status: "default",
-  });
+    id: Date.now(),
+  };
 
-  const submitEventForm = () => submit(event);
+  const [event, setEvent] = useState<IEvents>(mockEvent);
 
-  const disabledDate = (cur: Dayjs) => cur && cur < dayjs().endOf("day");
+  const submitEventForm = () => {
+    submit(event);
+    setEvent(mockEvent);
+    if (formRef.current) formRef.current.resetFields();
+  };
 
- 
+  const disabledDate = (cur: Dayjs) => cur && cur < dayjs().startOf("day");
+
   return (
-    <Form onFinish={submitEventForm}>
+    <Form ref={formRef} onFinish={submitEventForm}>
       <Form.Item
         label="Event description"
         name="description"

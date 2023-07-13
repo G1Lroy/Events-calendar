@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC } from "react";
 import { Badge, Button, Calendar, Card, Popover } from "antd";
 import { IEvents } from "../models/EVENT_TYPES";
 import { Moment } from "moment";

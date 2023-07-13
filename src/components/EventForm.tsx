@@ -12,7 +12,7 @@ import { IUser } from "../models/LOGIN_TYPES";
 import { IEvents } from "../models/EVENT_TYPES";
 import { useSelectorType } from "../hooks/useSelectorType";
 import dayjs, { Dayjs } from "dayjs";
-import { bageStatus } from "../bages";
+import { bageStatus } from "../mockedData/bages";
 
 interface EventFormProps {
   guests: IUser[];
@@ -20,6 +20,7 @@ interface EventFormProps {
 }
 
 const EventForm: FC<EventFormProps> = ({ guests, submit }) => {
+
   const formRef = useRef<FormInstance | null>(null);
   const author = useSelectorType((state) => state.loginState.user.username);
   const mockEvent: IEvents = {
@@ -30,7 +31,6 @@ const EventForm: FC<EventFormProps> = ({ guests, submit }) => {
     status: "default",
     id: Date.now(),
   };
-
   const [event, setEvent] = useState<IEvents>(mockEvent);
 
   const submitEventForm = () => {
@@ -74,7 +74,7 @@ const EventForm: FC<EventFormProps> = ({ guests, submit }) => {
       >
         <Select onChange={(item) => setEvent({ ...event, guest: item })}>
           {guests.map((item) => (
-            <Select.Option value={item.username} key={item.username}>
+            <Select.Option  value={item.username} key={item.username}>
               {item.username}
             </Select.Option>
           ))}

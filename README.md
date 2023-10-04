@@ -1,6 +1,6 @@
 # Events calendar app
 
-## [Link](https://ilya-potapow.github.io/Events-calendar/)
+## [Link](https://g1lroy.github.io/Events-calendar/)
 
 
   This project is an event calendar where you can add, delete, and view events. Each event has fields for a guest and an author, and events are accessible if the user is either a guest or an author.
